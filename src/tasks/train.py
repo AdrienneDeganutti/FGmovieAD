@@ -27,7 +27,6 @@ from src.configs.config import (
 from src.datasets.vl_dataloader import make_data_loader
 from src.evalcap.utils_caption_evaluate import evaluate_on_coco_caption
 from src.modeling.load_bert import get_bert_model
-from src.modeling.load_passt import MyPasst
 from src.modeling.load_swin import get_swin_model, reload_pretrained_swin
 from src.modeling.video_captioning_e2e_vid_swin_bert import VideoTransformer
 from src.solver import AdamW, WarmupLinearLR

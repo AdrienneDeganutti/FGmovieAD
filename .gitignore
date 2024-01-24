@@ -1,0 +1,18 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Folders
+src/evalcap/cider
+src/evalcap/cider/*
+src/evalcap/coco_caption
+src/evalcap/coco_caption/*
+src/evalcap/coco-caption
+src/evalcap/coco-caption/*
+
+# ignore pt models
+models/video_swin_transformer/*.pth
+models/pretrained_checkpoint/*
+
+# ignore exp output
+output
+wandb/*
