@@ -2,7 +2,7 @@ torchrun --nproc_per_node=1 \       # For distribution across multiple GPUs
 
     ./src/tasks/train.py \
 
-    --config ./src/configs/favd_32frm_default.json \
+    --config ./src/configs/5frm_default.json \
     --per_gpu_train_batch_size 1 \
     --per_gpu_eval_batch_size 1 \
     --num_train_epochs 1 \
