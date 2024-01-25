@@ -1,0 +1,8 @@
+DATASET:
+  visual_file: /mnt/welles/scratch/adrienne/MAD/features/CLIP_B32_frames_features_5fps.h5
+  language_file: /mnt/welles/scratch/adrienne/MAD/features/CLIP_B32_language_tokens_features.h5
+  train_json_file: /mnt/welles/scratch/adrienne/MAD/annotations/MAD-v1/MAD_train.json
+
+MODEL:
+  do_train: True
+  batch_size: 1
