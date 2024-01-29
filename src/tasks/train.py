@@ -24,7 +24,7 @@ from src.configs.config import (
     restore_training_settings,
     shared_configs,
 )
-from src.datasets.vl_dataloader import make_data_loader
+#from src.datasets.vl_dataloader import make_data_loader
 from src.evalcap.utils_caption_evaluate import evaluate_on_coco_caption
 from src.modeling.load_bert import get_bert_model
 from src.modeling.load_swin import get_swin_model, reload_pretrained_swin
@@ -154,7 +154,7 @@ def train(args, train_dataloader, val_dataloader, model, tokenizer,
     
     # Initialize wandb
     if args.rank == 0:
-        wandb.init(project="FAVDBench", name="training_exp3")
+        wandb.init(project="FGmovieAD", name="Debugging")
 
     meters = MetricLogger(delimiter='  ')
     max_iter = args.max_iter
@@ -193,7 +193,6 @@ def train(args, train_dataloader, val_dataloader, model, tokenizer,
             'attention_mask': batch[1],
             'token_type_ids': batch[2],
             'img_feats': batch[3],
-            'audio_feat': batch[4],
             'masked_pos': batch[5],
             'masked_ids': batch[6],
             'input_token_ids': batch[7],
@@ -483,7 +482,6 @@ def test(args, test_dataloader, model, tokenizer, predict_file):
                     'attention_mask': batch[1],
                     'token_type_ids': batch[2],
                     'img_feats': batch[3],
-                    'audio_feat': batch[4],
                     'masked_pos': batch[5],
                     'input_token_ids': batch[6],
                     'output_token_ids': batch[7],
@@ -635,11 +633,6 @@ def get_custom_args(base_config):
                         nargs='?',
                         const=True,
                         default=False)
-    parser.add_argument('--freeze_passt',
-                        type=str_to_bool,
-                        nargs='?',
-                        const=True,
-                        default=False)
     parser.add_argument('--use_checkpoint',
                         type=str_to_bool,
                         nargs='?',
@@ -723,17 +716,12 @@ def main(args):
     logger.info(f"Cuda version is: {torch.version.cuda}")
     logger.info(f"cuDNN version is : {torch.backends.cudnn.version()}")
 
-    # Get Passt
-    passt_model = MyPasst()
-    if args.freeze_passt:
-        passt_model.freeze()
     # Get Video Swin model
     swin_model = get_swin_model(args)
     # Get BERT and tokenizer
     bert_model, config, tokenizer = get_bert_model(args)
     # build SwinBERT based on training configs
-    vl_transformer = VideoTransformer(args, config, swin_model, bert_model,
-                                      passt_model)
+    vl_transformer = VideoTransformer(args, config, swin_model, bert_model)
     vl_transformer.freeze_backbone(freeze=args.freeze_backbone)
 
     if args.do_eval:

@@ -29,7 +29,7 @@ class SimpleRMSNorm(torch.nn.Module):
 
 class VideoTransformer(torch.nn.Module):
 
-    def __init__(self, args, config, swin, transformer_encoder, passt):
+    def __init__(self, args, config, swin, transformer_encoder):
         super(VideoTransformer, self).__init__()
         self.config = config
         self.use_checkpoint = args.use_checkpoint and not args.freeze_backbone
@@ -52,8 +52,8 @@ class VideoTransformer(torch.nn.Module):
                                              False)
 
         # passt
-        self.passt = passt
-        self.norm = SimpleRMSNorm(d=self.img_feature_dim)
+        #self.passt = passt
+        #self.norm = SimpleRMSNorm(d=self.img_feature_dim)
 
         if self.learn_mask_enabled == True:
             self.learn_vid_att = torch.nn.Embedding(
@@ -68,9 +68,9 @@ class VideoTransformer(torch.nn.Module):
         # masked_pos = torch.Size([3, 300])
         # masked_ids = torch.Size([3, 45])
 
-        audios = kwargs['audio_feat']
-        audios = self.norm(self.passt(audios))
-        del kwargs['audio_feat']
+        #audios = kwargs['audio_feat']
+        #audios = self.norm(self.passt(audios))
+        #del kwargs['audio_feat']
 
         images = kwargs['img_feats']
         B, S, C, H, W = images.shape  # batch, segment, chanel, hight, width
@@ -83,8 +83,8 @@ class VideoTransformer(torch.nn.Module):
         vid_feats = self.fc(vid_feats)
 
         # concat vid + audio
-        vid_feats = torch.cat((vid_feats, audios),
-                              dim=-2)  # vid_feats = torch.Size([3, 784, 512])
+        #vid_feats = torch.cat((vid_feats, audios),
+        #                      dim=-2)  # vid_feats = torch.Size([3, 784, 512])
         # prepare VL transformer inputs
         kwargs['img_feats'] = vid_feats
 
