@@ -4,7 +4,8 @@ from src.utils.logger import LOGGER as logger
 import torch
 
 
-def get_swin_model(args):
+def get_swin_model(AVL_args):
+    args = AVL_args
     if int(args.img_res) == 384:
         assert args.vidswin_size == "large"
         config_path = 'src/modeling/video_swin/swin_%s_384_patch244_window81212_kinetics%s_22k.py' % (
