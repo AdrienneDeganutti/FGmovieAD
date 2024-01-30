@@ -22,6 +22,7 @@ _C.INPUT = CN()
 _C.INPUT.STRIDE = 1
 _C.INPUT.NUM_PRE_CLIPS   = 128
 _C.INPUT.PRE_QUERY_SIZE  = 300
+_C.INPUT.IMG_RES = 224
 _C.INPUT.LANG_FEAT       = 'clip'  
 _C.INPUT.NORMALIZE_VIDEO_FEATS= False
 # -----------------------------------------------------------------------------
@@ -140,6 +141,15 @@ _C.wandb.name = None
 _C.wandb.tags = None
 _C.wandb.project = 'FGmovieAD'  # name of the wandb project
 _C.wandb.entity = 'pardoalejo'
+
+
+# ---------------------------------------------------------------------------- #
+# FAVD args
+# ---------------------------------------------------------------------------- #
+_C.img_res = 224
+_C.vidswin_size = "base"
+_C.kinetics = 600
+_C.pretrained_2d = 0
 
 def get_cfg_defaults():
   """Get a yacs CfgNode object with default values for my_project."""

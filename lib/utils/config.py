@@ -104,4 +104,4 @@ class Config(dict):
         return '\n'.join(texts)
 
 
-config = Config()
+init_config = Config()
