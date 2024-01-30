@@ -115,7 +115,7 @@ def add_log_to_file(log_path):
     LOGGER.addHandler(fh)
 
 
-from tensorboardX import SummaryWriter
+#from tensorboardX import SummaryWriter
 
 
 class TensorboardLogger(object):

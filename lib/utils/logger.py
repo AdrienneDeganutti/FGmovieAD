@@ -33,17 +33,19 @@ def setup_logger_wandb(config, cfg):
     log_format = logging.Formatter('%(asctime)s %(message)s')
     logger = logging.getLogger()
     logger.setLevel(numeric_level)
-    if not osp.exists(cfg.OUTPUT_DIR):
-        os.makedirs(cfg.OUTPUT_DIR)
-    file_handler = logging.FileHandler(osp.join(cfg.OUTPUT_DIR,
-                                                '{}.log'.format(osp.basename(cfg.OUTPUT_DIR))))
-    file_handler.setFormatter(log_format)
-    logger.addHandler(file_handler)
 
-    file_handler = logging.StreamHandler(sys.stdout)
-    file_handler.setFormatter(log_format)
-    logger.addHandler(file_handler)
-    logging.root = logger
-    logging.info("save log, checkpoint and code to: {}".format(cfg.OUTPUT_DIR))
+    if not logger.handlers:
+        if not osp.exists(cfg.OUTPUT_DIR):
+            os.makedirs(cfg.OUTPUT_DIR)
+        file_handler = logging.FileHandler(osp.join(cfg.OUTPUT_DIR,
+                                                    '{}.log'.format(osp.basename(cfg.OUTPUT_DIR))))
+        file_handler.setFormatter(log_format)
+        logger.addHandler(file_handler)
+
+        console_handler = logging.StreamHandler(sys.stdout)
+        console_handler.setFormatter(log_format)
+        logger.addHandler(console_handler)
+
+    logger.info("save log, checkpoint and code to: {}".format(cfg.OUTPUT_DIR))
 
     return logger
