@@ -23,16 +23,8 @@ INPUT:
   LANG_FEAT: clip
   NUM_PRE_CLIPS:   128 
   PRE_QUERY_SIZE:  512  # 300 for glove and 512 for clip
-  IMG_RES: 224  #this is the default that was set for MAD visual features extraction
 
 DATALOADER:
   NUM_WORKERS: 0 
 
 OUTPUT_DIR: output/model
-
-
-# FAVD args
-img_res: 224
-vidswin_size: "base"
-kinetics: 600
-pretrained_2d: 0
