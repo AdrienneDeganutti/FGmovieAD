@@ -16,3 +16,6 @@ models/pretrained_checkpoint/*
 # ignore exp output
 output
 wandb/*
+
+# other
+apex
