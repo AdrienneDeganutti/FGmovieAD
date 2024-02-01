@@ -1,4 +1,5 @@
 {
+    "nproc_per_node": 1,
     "do_train": true,
     "evaluate_during_training": true,
     "data_dir": "datasets",
@@ -9,8 +10,8 @@
     "max_seq_length": 300,
     "max_img_seq_length": 1257,
     "img_res": 224,
-    "max_num_frames": 32,
-    "patch_size": 32,
+    "max_num_frames": 5,
+    "patch_size": 5,
     "per_gpu_eval_batch_size": 1,
     "per_gpu_train_batch_size": 1,
     "num_workers": 16,
