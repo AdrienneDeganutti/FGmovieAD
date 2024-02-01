@@ -49,7 +49,7 @@ class MADdataset(torch.utils.data.Dataset):
             raise ValueError('Select a correct type of lang feat - Glove is deprecated.')
 
         self.movies = {a['movie']:a['movie_duration'] for a in self.annos}
-        logger = logging.getLogger("vlg.trainer")
+        logger = logging.getLogger("mad.dataloader")
         logger.info("Loading visual features, please wait...")
         self.feats = movie2feats(visual_feats_file, self.movies.keys())
         logger.info("Successfully loaded visual features.")
@@ -107,13 +107,13 @@ class MADdataset(torch.utils.data.Dataset):
             OUTPUTS:
             None.
         '''
-        logger = logging.getLogger("vlg.trainer")
+        logger = logging.getLogger("mad.dataloader")
         logger.info("Loading cached annotation data, please wait...")
         self.annos = pkl.load(open(cache, 'rb'))
         logger.info("Successfully loaded annotations from cache.")
         
     def load_clip_lang_feats(self, file):
-        logger = logging.getLogger("vlg.trainer")
+        logger = logging.getLogger("mad.dataloader")
         logger.info("Loading language features, please wait...")
         with h5py.File(file, 'r') as f:
             for i, anno in enumerate(self.annos):
@@ -140,7 +140,7 @@ class MADdataset(torch.utils.data.Dataset):
         '''
         # compute the annotation data and dump it in a pickle file
         self.annos = []
-        logger = logging.getLogger("vlg.trainer")
+        logger = logging.getLogger("mad.dataloader")
         logger.info("Preparing annotations data, please wait...")
         for k, anno in tqdm(annos.items()):
             # Unpack Info ----------------------------------------------------------------
