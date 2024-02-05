@@ -34,9 +34,10 @@ class MADdataset(torch.utils.data.Dataset):
         #load annotation file
         annos = json.load(open(annotations_file,'r'))
 
-        cache = 'output/data_cache/MAD_annotations.pickle'
+        cache = f'output/data_cache/MAD_{split}_annotations.pickle'
         if os.path.exists(cache):
             # if cached data exist load it.
+            logger.info(f'Split: {split}')
             self.load_pickle_data(cache)
         else:
             # otherwise compute the annotations information
@@ -52,7 +53,6 @@ class MADdataset(torch.utils.data.Dataset):
         logger = logging.getLogger("mad.dataloader")
         logger.info("Loading visual features, please wait...")
         self.feats = movie2feats(visual_feats_file, self.movies.keys())
-        logger.info("Successfully loaded visual features.")
 
         if self.max_words > 50:
             self.max_words = 50
@@ -110,7 +110,6 @@ class MADdataset(torch.utils.data.Dataset):
         logger = logging.getLogger("mad.dataloader")
         logger.info("Loading cached annotation data, please wait...")
         self.annos = pkl.load(open(cache, 'rb'))
-        logger.info("Successfully loaded annotations from cache.")
         
     def load_clip_lang_feats(self, file):
         logger = logging.getLogger("mad.dataloader")
@@ -122,7 +121,6 @@ class MADdataset(torch.utils.data.Dataset):
                 self.annos[i]['wordlen'] = len(lang_feat)
 
         self.max_words = max([a['wordlen'] for a in self.annos])
-        logger.info("Successfully loaded language features.")
 
     def _compute_annotations(self, annos, cache):
         '''
