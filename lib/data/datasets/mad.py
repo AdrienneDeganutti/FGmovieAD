@@ -37,6 +37,7 @@ class MADdataset(torch.utils.data.Dataset):
         cache = f'output/data_cache/MAD_{split}_annotations.pickle'
         if os.path.exists(cache):
             # if cached data exist load it.
+            logger = logging.getLogger("mad.dataloader")
             logger.info(f'Split: {split}')
             self.load_pickle_data(cache)
         else:
@@ -50,7 +51,6 @@ class MADdataset(torch.utils.data.Dataset):
             raise ValueError('Select a correct type of lang feat - Glove is deprecated.')
 
         self.movies = {a['movie']:a['movie_duration'] for a in self.annos}
-        logger = logging.getLogger("mad.dataloader")
         logger.info("Loading visual features, please wait...")
         self.feats = movie2feats(visual_feats_file, self.movies.keys())
 
