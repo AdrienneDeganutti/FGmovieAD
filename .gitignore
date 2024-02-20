@@ -19,3 +19,8 @@ wandb/*
 
 # other
 apex
+AutoAD
+
+#large data files
+dataset/metadata/train.caption_coco_format.json
+dataset/visual_features_tsv/train_segmented_features.tsv
